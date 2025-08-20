@@ -100,6 +100,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const summaryItemsContainer = document.getElementById('summary-items-container');
     const summaryTotalPriceEl = document.getElementById('summary-total-price');
 
+    // Elemen Tombol Promo
+    const claimPromoBtn = document.getElementById('claim-promo-btn');
+    const viewTermsBtn = document.getElementById('view-terms-btn');
+
     // --- Nomor WhatsApp ---
     // GANTI NOMOR DI BAWAH INI dengan nomor WhatsApp Anda (diawali dengan 62)
     const WHATSAPP_NUMBER = '6285775594663'; 
@@ -346,6 +350,35 @@ Terima kasih! Mohon segera diproses.
         closeCheckoutModal();
         checkoutForm.reset();
     });
+
+    // =====================================================================
+    // EVENT LISTENER UNTUK TOMBOL PROMO (DIUBAH)
+    // =====================================================================
+    claimPromoBtn.addEventListener('click', () => {
+        // Definisikan paket promo sebagai satu produk unik
+        const promoPackage = {
+            id: 'promo-paket-berdua', // ID unik untuk produk promo
+            name: 'Paket Hemat Berdua', // Nama yang akan tampil di keranjang
+            price: 99000,             // Harga promo tetap
+            image: 'https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=1965&auto=format&fit=crop' // Gambar dari kartu promo
+        };
+
+        // Tambahkan paket promo ke keranjang sebagai satu item
+        addToCart(promoPackage);
+
+        // Beri feedback visual kepada pengguna
+        claimPromoBtn.textContent = 'Promo Ditambahkan!';
+        claimPromoBtn.style.backgroundColor = '#28a745'; // Warna hijau
+        setTimeout(() => {
+            claimPromoBtn.textContent = 'Klaim Promo';
+            claimPromoBtn.style.backgroundColor = ''; // Kembali ke warna semula
+        }, 2000);
+    });
+
+    viewTermsBtn.addEventListener('click', () => {
+        alert('Syarat & Ketentuan Gratis Ongkir:\n\nDapatkan gratis ongkos kirim untuk setiap pembelian di atas Rp 150.000.');
+    });
+
 
     // --- Inisialisasi ---
     updateCart();
