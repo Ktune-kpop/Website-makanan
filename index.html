@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LezatBites - Pesan Makanan Favoritmu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <nav class="navbar">
+            <a href="#" class="logo">LezatBites 🍔</a>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="#beranda">Beranda</a></li>
+                <li class="nav-item"><a href="#menu">Menu</a></li>
+                <li class="nav-item"><a href="#promo">Promo</a></li>
+                <li class="nav-item"><a href="#kontak">Kontak</a></li>
+            </ul>
+            <div class="nav-icons">
+                <div class="cart-icon-container">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </div>
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="beranda" class="hero">
+            <div class="hero-content">
+                <h1>Nikmati Makanan Lezat, Diantar Cepat.</h1>
+                <p>Pilih dari ratusan menu favorit dan nikmati hidangan berkualitas langsung di rumah Anda.</p>
+                <a href="#menu" class="btn-primary">Lihat Menu</a>
+            </div>
+        </section>
+
+        <section id="menu" class="products">
+            <h2 class="section-title">Menu Terpopuler</h2>
+            <div class="product-grid">
+                 <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=1998&auto=format&fit=crop" alt="Burger Spesial" onerror="this.onerror=null;this.src='https://placehold.co/600x400/f87171/ffffff?text=Burger';">
+                    </div>
+                    <div class="product-info">
+                        <h3>Burger Daging Spesial</h3>
+                        <p class="price">Rp 55.000</p>
+                        <button class="btn-add-to-cart" data-id="1" data-name="Burger Daging Spesial" data-price="55000">
+                            <i class="fas fa-cart-plus"></i> Tambah
+                        </button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=2070&auto=format&fit=crop" alt="Pizza Pepperoni" onerror="this.onerror=null;this.src='https://placehold.co/600x400/fb923c/ffffff?text=Pizza';">
+                    </div>
+                    <div class="product-info">
+                        <h3>Pizza Pepperoni</h3>
+                        <p class="price">Rp 85.000</p>
+                        <button class="btn-add-to-cart" data-id="2" data-name="Pizza Pepperoni" data-price="85000">
+                            <i class="fas fa-cart-plus"></i> Tambah
+                        </button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                         <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?q=80&w=1974&auto=format&fit=crop" alt="Salad Segar" onerror="this.onerror=null;this.src='https://placehold.co/600x400/34d399/ffffff?text=Salad';">
+                    </div>
+                    <div class="product-info">
+                        <h3>Salad Sayur Segar</h3>
+                        <p class="price">Rp 45.000</p>
+                        <button class="btn-add-to-cart" data-id="3" data-name="Salad Sayur Segar" data-price="45000">
+                            <i class="fas fa-cart-plus"></i> Tambah
+                        </button>
+                    </div>
+                </div>
+                 <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1600891964092-4316c288032e?q=80&w=2070&auto=format&fit=crop" alt="Steak Premium" onerror="this.onerror=null;this.src='https://placehold.co/600x400/60a5fa/ffffff?text=Steak';">
+                    </div>
+                    <div class="product-info">
+                        <h3>Steak Daging Premium</h3>
+                        <p class="price">Rp 150.000</p>
+                        <button class="btn-add-to-cart" data-id="4" data-name="Steak Daging Premium" data-price="150000">
+                            <i class="fas fa-cart-plus"></i> Tambah
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="promo" class="promo-section">
+            <h2 class="section-title">Spesial Promo Untukmu</h2>
+            <div class="promo-grid">
+                <div class="promo-card">
+                    <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=1965&auto=format&fit=crop" alt="Promo Paket Hemat" class="promo-image" onerror="this.onerror=null;this.src='https://placehold.co/600x400/facc15/ffffff?text=Promo+1';">
+                    <div class="promo-content">
+                        <h3>Paket Hemat Berdua</h3>
+                        <p>Nikmati 2 Burger Spesial dan 2 Minuman hanya dengan harga spesial. Cocok untuk makan siang bersama teman!</p>
+                        <div class="promo-price">
+                            <span class="new-price">Rp 99.000</span>
+                            <span class="old-price">Rp 130.000</span>
+                        </div>
+                        <button class="btn-promo">Klaim Promo</button>
+                    </div>
+                </div>
+                <div class="promo-card">
+                    <img src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?q=80&w=2069&auto=format&fit=crop" alt="Promo Gratis Ongkir" class="promo-image" onerror="this.onerror=null;this.src='https://placehold.co/600x400/818cf8/ffffff?text=Promo+2';">
+                    <div class="promo-content">
+                        <h3>Gratis Ongkir!</h3>
+                        <p>Dapatkan gratis ongkos kirim untuk setiap pembelian di atas Rp 150.000. Pesan sekarang juga!</p>
+                        <div class="promo-price">
+                            <span class="new-price">Tanpa Batas Jarak</span>
+                        </div>
+                        <button class="btn-promo">Lihat Syarat</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="kontak">
+        <div class="footer-content">
+            <h3>LezatBites</h3>
+            <p>Pesan makanan favoritmu dengan mudah dan cepat. Kualitas terjamin, rasa tak tertandingi.</p>
+            <ul class="socials">
+                <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                <li><a href="#"><i class="fab fa-youtube"></i></a></li>
+            </ul>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 LezatBites. Dibuat dengan ❤️ untuk para pecinta kuliner.</p>
+        </div>
+    </footer>
+
+    <div class="cart-modal-overlay">
+        <div class="cart-modal">
+            <div class="cart-header">
+                <h2>Keranjang Anda</h2>
+                <button class="close-cart-btn">&times;</button>
+            </div>
+            <div class="cart-body">
+                </div>
+            <div class="cart-footer">
+                <div class="cart-total">
+                    <strong>Total:</strong>
+                    <span id="cart-total-price">Rp 0</span>
+                </div>
+                <button class="btn-checkout">Lanjut ke Pembayaran</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="checkout-modal-overlay">
+        <div class="checkout-modal">
+            <div class="checkout-header">
+                <h2>Checkout</h2>
+                <button class="close-checkout-btn">&times;</button>
+            </div>
+            <div class="checkout-body">
+                <div class="order-summary">
+                    <h3>Ringkasan Pesanan</h3>
+                    <div id="summary-items-container"></div>
+                    <div class="summary-total">
+                        <strong>Total:</strong>
+                        <span id="summary-total-price">Rp 0</span>
+                    </div>
+                </div>
+                <div class="customer-details">
+                    <h3>Detail Pengiriman</h3>
+                    <form id="checkout-form">
+                        <div class="form-group">
+                            <label for="customer-name">Nama Lengkap</label>
+                            <input type="text" id="customer-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="customer-address">Alamat Lengkap</label>
+                            <textarea id="customer-address" rows="3" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="payment-method">Metode Pembayaran</label>
+                            <select id="payment-method">
+                                <option value="cod">Bayar di Tempat (COD)</option>
+                                <option value="transfer">Transfer Bank</option>
+                                <option value="ewallet">E-Wallet</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="checkout-footer">
+                <button type="submit" form="checkout-form" class="btn-place-order">Pesan Sekarang</button>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="script.js"></script>
+</body>
+</html>
