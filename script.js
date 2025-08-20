@@ -1,4 +1,83 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const slidesContainer = document.querySelector('.carousel-slides');
+    // Important: Use querySelectorAll to get a NodeList of all slides
+    const slides = document.querySelectorAll('.carousel-slide');
+    const prevBtn = document.querySelector('.carousel-btn.prev');
+    const nextBtn = document.querySelector('.carousel-btn.next');
+    const dotsContainer = document.querySelector('.carousel-dots');
+
+    if (!slidesContainer || slides.length === 0) {
+        return; // Exit if carousel elements are not found
+    }
+
+    let currentIndex = 0;
+    const totalSlides = slides.length;
+    let autoPlayInterval;
+
+    // Create dots dynamically based on number of slides
+    for (let i = 0; i < totalSlides; i++) {
+        const dot = document.createElement('div');
+        dot.classList.add('dot');
+        dot.addEventListener('click', () => {
+            goToSlide(i);
+            resetAutoPlay();
+        });
+        dotsContainer.appendChild(dot);
+    }
+    const dots = document.querySelectorAll('.dot');
+
+    // Function to move to a specific slide
+    function goToSlide(slideIndex) {
+        // Clamp the index to be within bounds
+        if (slideIndex < 0) {
+            slideIndex = totalSlides - 1;
+        } else if (slideIndex >= totalSlides) {
+            slideIndex = 0;
+        }
+
+        slidesContainer.style.transform = `translateX(-${slideIndex * 100}%)`;
+        currentIndex = slideIndex;
+        updateDots();
+    }
+    
+    // Function to highlight the active dot
+    function updateDots() {
+        dots.forEach((dot, index) => {
+            if (index === currentIndex) {
+                dot.classList.add('active');
+            } else {
+                dot.classList.remove('active');
+            }
+        });
+    }
+
+    // Event Listeners for Next/Prev buttons
+    nextBtn.addEventListener('click', () => {
+        goToSlide(currentIndex + 1);
+        resetAutoPlay();
+    });
+
+    prevBtn.addEventListener('click', () => {
+        goToSlide(currentIndex - 1);
+        resetAutoPlay();
+    });
+
+    // Autoplay functionality
+    function startAutoPlay() {
+        autoPlayInterval = setInterval(() => {
+            goToSlide(currentIndex + 1);
+        }, 5000); // Change slide every 5 seconds
+    }
+
+    function resetAutoPlay() {
+        clearInterval(autoPlayInterval);
+        startAutoPlay();
+    }
+
+    // Initial setup
+    goToSlide(0);
+    startAutoPlay();
+
     // --- Elemen DOM ---
     const hamburger = document.querySelector('.hamburger');
     const navMenu = document.querySelector('.nav-menu');
