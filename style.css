@@ -1185,9 +1185,18 @@ body.dark-mode .close-terms-btn {
     margin-bottom: 0.5rem;
 }
 
+#map-image {
+    width: 100%;
+    height: 100%;
+}
+
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    #map-image {
+        width: 100%;
+        height: 100%;
+    }
     .nav-menu {
         position: fixed;
         left: -100%;
