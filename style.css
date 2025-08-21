@@ -538,14 +538,60 @@ body.dark-mode .promo-section {
 }
 
 /* Customer Reviews Section */
-.reviews {
-    padding: 6rem 5%;
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(calc(-350px * 4)); /* 350px card width * 4 cards */
+    }
 }
 
+.reviews {
+    padding: 6rem 0; /* Changed padding */
+    overflow: hidden;
+    position: relative;
+}
+
+.reviews:hover .review-grid {
+    animation-play-state: paused;
+}
+
+/* Gradient fade effect on the sides */
+.reviews::before,
+.reviews::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 10rem;
+    height: 100%;
+    z-index: 2;
+}
+
+.reviews::before {
+    left: 0;
+    background: linear-gradient(to right, var(--background-color) 0%, rgba(255,255,255,0) 100%);
+}
+
+.reviews::after {
+    right: 0;
+    background: linear-gradient(to left, var(--background-color) 0%, rgba(255,255,255,0) 100%);
+}
+
+body.dark-mode .reviews::before {
+    background: linear-gradient(to right, #121212 0%, rgba(18,18,18,0) 100%);
+}
+
+body.dark-mode .reviews::after {
+    background: linear-gradient(to left, #121212 0%, rgba(18,18,18,0) 100%);
+}
+
+
 .review-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    display: flex; /* Changed from grid to flex */
     gap: 2rem;
+    width: calc(350px * 8); /* 350px card width * 8 total cards */
+    animation: scroll 60s linear infinite;
 }
 
 .review-card {
@@ -556,6 +602,8 @@ body.dark-mode .promo-section {
     display: flex;
     flex-direction: column;
     transition: transform 0.3s ease, background-color 0.3s ease;
+    width: 330px; /* Fixed width */
+    flex-shrink: 0; /* Prevent shrinking */
 }
 
 .review-card:hover {
