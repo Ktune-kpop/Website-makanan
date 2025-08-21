@@ -372,30 +372,30 @@ Terima kasih! Mohon segera diproses.
         checkoutForm.reset();
     });
 
-    // =====================================================================
-    // EVENT LISTENER UNTUK TOMBOL PROMO
-    // =====================================================================
-    claimPromoBtn.addEventListener('click', () => {
-        // Data produk untuk "Burger Daging Spesial"
-        const promoProduct = {
-            id: '1',
-            name: 'Burger Daging Spesial',
-            price: 55000,
-            image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=1998&auto=format&fit=crop'
-        };
+ 
+ // =====================================================================
+// EVENT LISTENER UNTUK TOMBOL PROMO
+// =====================================================================
+claimPromoBtn.addEventListener('click', () => {
+    // 1. Definisikan produk paket promo sebagai satu item unik
+    const promoPackage = {
+        id: 'promo-hemat-berdua', // ID unik untuk paket ini
+        name: 'Paket Hemat Berdua', // Nama yang akan tampil di keranjang
+        price: 99000,              // Harga spesial untuk paket
+        image: 'https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=1965&auto=format&fit=crop' // Gambar dari kartu promo
+    };
 
-        // Tambahkan 2 burger ke keranjang sesuai promo "Paket Hemat Berdua"
-        addToCart(promoProduct);
-        addToCart(promoProduct);
+    // 2. Tambahkan paket tersebut ke keranjang sebagai satu item
+    addToCart(promoPackage);
 
-        // Beri feedback visual kepada pengguna
-        claimPromoBtn.textContent = 'Promo Ditambahkan!';
-        claimPromoBtn.style.backgroundColor = '#28a745'; // Warna hijau
-        setTimeout(() => {
-            claimPromoBtn.textContent = 'Klaim Promo';
-            claimPromoBtn.style.backgroundColor = ''; // Kembali ke warna semula
-        }, 2000);
-    });
+    // 3. Berikan feedback visual kepada pengguna bahwa promo berhasil ditambahkan
+    claimPromoBtn.textContent = 'Promo Ditambahkan!';
+    claimPromoBtn.style.backgroundColor = '#28a745'; // Warna hijau
+    setTimeout(() => {
+        claimPromoBtn.textContent = 'Klaim Promo';
+        claimPromoBtn.style.backgroundColor = ''; // Kembali ke warna semula
+    }, 2000);
+});
 
     // Event listener untuk tombol "Lihat Syarat" (DIMODIFIKASI)
     viewTermsBtn.addEventListener('click', () => {
