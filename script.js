@@ -103,6 +103,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Elemen Tombol Promo
     const claimPromoBtn = document.getElementById('claim-promo-btn');
     const viewTermsBtn = document.getElementById('view-terms-btn');
+    
+    // Elemen Modal Syarat & Ketentuan (BARU)
+    const termsModalOverlay = document.querySelector('.terms-modal-overlay');
+    const closeTermsBtn = document.querySelector('.close-terms-btn');
+
 
     // --- Nomor WhatsApp ---
     // GANTI NOMOR DI BAWAH INI dengan nomor WhatsApp Anda (diawali dengan 62)
@@ -216,6 +221,10 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     
     const closeCheckoutModal = () => checkoutModalOverlay.classList.remove('show');
+    
+    // Fungsi untuk Modal Syarat & Ketentuan (BARU)
+    const openTermsModal = () => termsModalOverlay.classList.add('show');
+    const closeTermsModal = () => termsModalOverlay.classList.remove('show');
 
 
     // --- Event Listeners ---
@@ -232,27 +241,39 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     addToCartButtons.forEach(button => {
-        button.addEventListener('click', (e) => {
-            const productCard = e.target.closest('.product-card');
-            const productData = e.target.closest('.btn-add-to-cart').dataset;
-            const productImage = productCard.querySelector('.product-image img').src;
+    button.addEventListener('click', (e) => {
+        // Get the button that was clicked
+        const clickedButton = e.currentTarget;
 
-            const product = {
-                id: productData.id,
-                name: productData.name,
-                price: parseInt(productData.price),
-                image: productImage
-            };
-            addToCart(product);
+        // Disable the button immediately to prevent double clicks
+        clickedButton.disabled = true;
 
-            button.innerHTML = '<i class="fas fa-check"></i> Ditambahkan';
-            button.classList.add('added'); 
-            setTimeout(() => {
-                button.innerHTML = '<i class="fas fa-cart-plus"></i> Tambah';
-                button.classList.remove('added');
-            }, 1500);
-        });
+        const productCard = clickedButton.closest('.product-card');
+        const productData = clickedButton.dataset;
+        const productImage = productCard.querySelector('.product-image img').src;
+
+        const product = {
+            id: productData.id,
+            name: productData.name,
+            price: parseInt(productData.price),
+            image: productImage
+        };
+        addToCart(product);
+
+        // Update button text and style
+        clickedButton.innerHTML = '<i class="fas fa-check"></i> Ditambahkan';
+        clickedButton.classList.add('added');
+
+        // Set a timeout to revert the button state
+        setTimeout(() => {
+            clickedButton.innerHTML = '<i class="fas fa-cart-plus"></i> Tambah';
+            clickedButton.classList.remove('added');
+
+            // Re-enable the button after 1.5 seconds
+            clickedButton.disabled = false; 
+        }, 1500);
     });
+});
 
     cartIcon.addEventListener('click', toggleCartModal);
     closeCartBtn.addEventListener('click', toggleCartModal);
@@ -352,19 +373,20 @@ Terima kasih! Mohon segera diproses.
     });
 
     // =====================================================================
-    // EVENT LISTENER UNTUK TOMBOL PROMO (DIUBAH)
+    // EVENT LISTENER UNTUK TOMBOL PROMO
     // =====================================================================
     claimPromoBtn.addEventListener('click', () => {
-        // Definisikan paket promo sebagai satu produk unik
-        const promoPackage = {
-            id: 'promo-paket-berdua', // ID unik untuk produk promo
-            name: 'Paket Hemat Berdua', // Nama yang akan tampil di keranjang
-            price: 99000,             // Harga promo tetap
-            image: 'https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=1965&auto=format&fit=crop' // Gambar dari kartu promo
+        // Data produk untuk "Burger Daging Spesial"
+        const promoProduct = {
+            id: '1',
+            name: 'Burger Daging Spesial',
+            price: 55000,
+            image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=1998&auto=format&fit=crop'
         };
 
-        // Tambahkan paket promo ke keranjang sebagai satu item
-        addToCart(promoPackage);
+        // Tambahkan 2 burger ke keranjang sesuai promo "Paket Hemat Berdua"
+        addToCart(promoProduct);
+        addToCart(promoProduct);
 
         // Beri feedback visual kepada pengguna
         claimPromoBtn.textContent = 'Promo Ditambahkan!';
@@ -375,8 +397,17 @@ Terima kasih! Mohon segera diproses.
         }, 2000);
     });
 
+    // Event listener untuk tombol "Lihat Syarat" (DIMODIFIKASI)
     viewTermsBtn.addEventListener('click', () => {
-        alert('Syarat & Ketentuan Gratis Ongkir:\n\nDapatkan gratis ongkos kirim untuk setiap pembelian di atas Rp 150.000.');
+        openTermsModal(); // Mengubah dari alert() menjadi membuka modal
+    });
+
+    // Event listener untuk menutup modal S&K (BARU)
+    closeTermsBtn.addEventListener('click', closeTermsModal);
+    termsModalOverlay.addEventListener('click', (e) => {
+        if (e.target === termsModalOverlay) {
+            closeTermsModal();
+        }
     });
 
 
