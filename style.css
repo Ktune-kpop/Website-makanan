@@ -641,6 +641,71 @@ body.dark-mode .reviews::after {
     line-height: 1.7;
 }
 
+/* Contact Section */
+.contact-section {
+    padding: 6rem 5%;
+}
+
+.contact-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    background-color: var(--card-bg);
+    padding: 3rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    transition: background-color 0.3s ease;
+}
+
+.contact-info h3 {
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.contact-info p {
+    margin-bottom: 2rem;
+    line-height: 1.7;
+}
+
+.contact-info ul {
+    list-style: none;
+    padding: 0;
+}
+
+.contact-info ul li {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.2rem;
+    font-size: 1.05rem;
+}
+
+.contact-info ul li i {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    width: 25px; /* To align the text */
+    text-align: center;
+}
+
+.contact-map iframe {
+    border-radius: var(--border-radius);
+    min-height: 350px;
+}
+
+/* Make contact section responsive */
+@media (max-width: 992px) {
+    .contact-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .contact-container {
+        padding: 1.5rem;
+    }
+}
+
 
 /* Footer */
 footer {
