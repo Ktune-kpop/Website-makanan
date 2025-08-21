@@ -8,6 +8,18 @@
     --font-family: 'Poppins', sans-serif;
     --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     --border-radius: 15px;
+    --border-color: #eee;
+}
+
+/* Dark Mode Color Palette */
+body.dark-mode {
+    --primary-color: #ff7a5f;
+    --secondary-color: #e0e0e0;
+    --background-color: #121212;
+    --text-color: #b0b0b0;
+    --card-bg: #1e1e1e;
+    --shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    --border-color: #3a3a3a;
 }
 
 /* General Styling */
@@ -26,6 +38,7 @@ body {
     background-color: var(--background-color);
     color: var(--text-color);
     line-height: 1.6;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Header and Navbar */
@@ -96,6 +109,23 @@ body {
     color: var(--secondary-color);
 }
 
+/* Theme Switcher Styles */
+.theme-switcher {
+    cursor: pointer;
+}
+
+.theme-switcher i {
+    font-size: 1.5rem;
+    color: var(--secondary-color);
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.theme-switcher i:hover {
+    color: var(--primary-color);
+    transform: scale(1.1) rotate(15deg);
+}
+
+
 .cart-count {
     position: absolute;
     top: -8px;
@@ -106,7 +136,7 @@ body {
     padding: 2px 6px;
     font-size: 0.75rem;
     font-weight: bold;
-    border: 2px solid white;
+    border: 2px solid var(--card-bg);
 }
 
 .hamburger {
@@ -349,13 +379,18 @@ body {
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
 }
 
 .product-card:hover {
     transform: translateY(-10px);
     box-shadow: 0 8px 25px rgba(0,0,0,0.15);
 }
+
+body.dark-mode .product-card:hover {
+    box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+}
+
 
 .product-image img {
     width: 100%;
@@ -388,7 +423,7 @@ body {
 
 .btn-add-to-cart {
     background-color: var(--secondary-color);
-    color: white;
+    color: var(--card-bg);
     padding: 0.7rem 1.5rem;
     border: none;
     border-radius: 50px;
@@ -406,10 +441,19 @@ body {
     background-color: #555;
 }
 
+body.dark-mode .btn-add-to-cart {
+    color: #333;
+}
+
+
 /* Promo Section */
 .promo-section {
     padding: 4rem 5%;
     background-color: #fff8f6;
+    transition: background-color 0.3s ease;
+}
+body.dark-mode .promo-section {
+    background-color: #1a1a1a;
 }
 
 .promo-grid {
@@ -425,7 +469,7 @@ body {
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .promo-card:hover {
@@ -495,10 +539,16 @@ body {
 
 /* Footer */
 footer {
-    background-color: var(--secondary-color);
+    background-color: var(--primary-color);
     color: #ccc;
     padding-top: 3rem;
+    transition: background-color 0.3s ease;
 }
+body.dark-mode footer {
+    background-color: #1e1e1e;
+    color: var(--text-color);
+}
+
 
 .footer-content {
     text-align: center;
@@ -510,6 +560,9 @@ footer {
     font-weight: 500;
     color: white;
     margin-bottom: 1rem;
+}
+body.dark-mode .footer-content h3 {
+    color: var(--primary-color);
 }
 
 .footer-content p {
@@ -539,6 +592,11 @@ footer {
     align-items: center;
     transition: background-color 0.3s, color 0.3s;
 }
+body.dark-mode .socials a {
+    color: var(--text-color);
+    border-color: var(--border-color);
+}
+
 
 .socials a:hover {
     background-color: var(--primary-color);
@@ -551,6 +609,11 @@ footer {
     padding: 1rem 0;
     text-align: center;
     font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+}
+
+body.dark-mode .footer-bottom {
+    background-color: #121212;
 }
 
 /* Cart Modal Styling */
@@ -575,14 +638,14 @@ footer {
 }
 
 .cart-modal {
-    background-color: white;
+    background-color: var(--card-bg);
     width: 100%;
     max-width: 450px;
     height: 100%;
     display: flex;
     flex-direction: column;
     transform: translateX(100%);
-    transition: transform 0.3s ease-in-out;
+    transition: transform 0.3s ease-in-out, background-color 0.3s ease;
 }
 
 .cart-modal-overlay.show .cart-modal {
@@ -594,7 +657,7 @@ footer {
     justify-content: space-between;
     align-items: center;
     padding: 1rem 1.5rem;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .cart-header h2 {
@@ -610,6 +673,9 @@ footer {
     color: #aaa;
     line-height: 1;
 }
+body.dark-mode .close-cart-btn {
+    color: var(--text-color);
+}
 
 .cart-body {
     flex-grow: 1;
@@ -623,7 +689,7 @@ footer {
     gap: 1rem;
     margin-bottom: 1rem;
     padding-bottom: 1rem;
-    border-bottom: 1px solid #f0f0f0;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .cart-item-img {
@@ -664,6 +730,10 @@ footer {
     cursor: pointer;
     font-weight: bold;
 }
+body.dark-mode .quantity-btn {
+    background: #333;
+    color: var(--text-color);
+}
 
 .remove-item-btn {
     background: none;
@@ -682,7 +752,7 @@ footer {
 
 .cart-footer {
     padding: 1.5rem;
-    border-top: 1px solid #eee;
+    border-top: 1px solid var(--border-color);
 }
 
 .cart-total {
@@ -733,7 +803,7 @@ footer {
 }
 
 .checkout-modal {
-    background-color: white;
+    background-color: var(--card-bg);
     width: 100%;
     max-width: 600px;
     border-radius: var(--border-radius);
@@ -742,7 +812,7 @@ footer {
     max-height: 90vh;
     box-shadow: var(--shadow);
     transform: scale(0.9);
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .checkout-modal-overlay.show .checkout-modal {
@@ -754,7 +824,7 @@ footer {
     justify-content: space-between;
     align-items: center;
     padding: 1rem 1.5rem;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .checkout-header h2 {
@@ -769,6 +839,9 @@ footer {
     cursor: pointer;
     color: #aaa;
     line-height: 1;
+}
+body.dark-mode .close-checkout-btn {
+    color: var(--text-color);
 }
 
 .checkout-body {
@@ -811,7 +884,7 @@ footer {
     font-weight: bold;
     margin-top: 1rem;
     padding-top: 1rem;
-    border-top: 1px solid #eee;
+    border-top: 1px solid var(--border-color);
 }
 
 .form-group {
@@ -830,11 +903,16 @@ footer {
     border: 1px solid #ccc;
     border-radius: 8px;
     font-family: var(--font-family);
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    border-color: var(--border-color);
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
+
 
 .checkout-footer {
     padding: 1.5rem;
-    border-top: 1px solid #eee;
+    border-top: 1px solid var(--border-color);
 }
 
 .btn-place-order {
@@ -878,13 +956,13 @@ footer {
 }
 
 .terms-modal {
-    background-color: white;
+    background-color: var(--card-bg);
     width: 100%;
     max-width: 550px;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
     transform: scale(0.9);
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, background-color 0.3s ease;
     display: flex;
     flex-direction: column;
 }
@@ -898,7 +976,7 @@ footer {
     justify-content: space-between;
     align-items: center;
     padding: 1rem 1.5rem;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .terms-header h2 {
@@ -913,6 +991,9 @@ footer {
     cursor: pointer;
     color: #aaa;
     line-height: 1;
+}
+body.dark-mode .close-terms-btn {
+    color: var(--text-color);
 }
 
 .terms-body {
@@ -961,7 +1042,7 @@ footer {
     .nav-item a {
         display: block;
         padding: 1.5rem 0;
-        border-bottom: 1px solid #f0f0f0;
+        border-bottom: 1px solid var(--border-color);
     }
     
     .nav-item a:hover::after {

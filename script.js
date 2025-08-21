@@ -1,82 +1,72 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // --- Carousel Logic ---
     const slidesContainer = document.querySelector('.carousel-slides');
-    // Important: Use querySelectorAll to get a NodeList of all slides
     const slides = document.querySelectorAll('.carousel-slide');
     const prevBtn = document.querySelector('.carousel-btn.prev');
     const nextBtn = document.querySelector('.carousel-btn.next');
     const dotsContainer = document.querySelector('.carousel-dots');
 
-    if (!slidesContainer || slides.length === 0) {
-        return; // Exit if carousel elements are not found
-    }
+    if (slidesContainer && slides.length > 0) {
+        let currentIndex = 0;
+        const totalSlides = slides.length;
+        let autoPlayInterval;
 
-    let currentIndex = 0;
-    const totalSlides = slides.length;
-    let autoPlayInterval;
+        for (let i = 0; i < totalSlides; i++) {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            dot.addEventListener('click', () => {
+                goToSlide(i);
+                resetAutoPlay();
+            });
+            dotsContainer.appendChild(dot);
+        }
+        const dots = document.querySelectorAll('.dot');
 
-    // Create dots dynamically based on number of slides
-    for (let i = 0; i < totalSlides; i++) {
-        const dot = document.createElement('div');
-        dot.classList.add('dot');
-        dot.addEventListener('click', () => {
-            goToSlide(i);
-            resetAutoPlay();
-        });
-        dotsContainer.appendChild(dot);
-    }
-    const dots = document.querySelectorAll('.dot');
-
-    // Function to move to a specific slide
-    function goToSlide(slideIndex) {
-        // Clamp the index to be within bounds
-        if (slideIndex < 0) {
-            slideIndex = totalSlides - 1;
-        } else if (slideIndex >= totalSlides) {
-            slideIndex = 0;
+        function goToSlide(slideIndex) {
+            if (slideIndex < 0) {
+                slideIndex = totalSlides - 1;
+            } else if (slideIndex >= totalSlides) {
+                slideIndex = 0;
+            }
+            slidesContainer.style.transform = `translateX(-${slideIndex * 100}%)`;
+            currentIndex = slideIndex;
+            updateDots();
+        }
+        
+        function updateDots() {
+            dots.forEach((dot, index) => {
+                if (index === currentIndex) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
         }
 
-        slidesContainer.style.transform = `translateX(-${slideIndex * 100}%)`;
-        currentIndex = slideIndex;
-        updateDots();
-    }
-    
-    // Function to highlight the active dot
-    function updateDots() {
-        dots.forEach((dot, index) => {
-            if (index === currentIndex) {
-                dot.classList.add('active');
-            } else {
-                dot.classList.remove('active');
-            }
-        });
-    }
-
-    // Event Listeners for Next/Prev buttons
-    nextBtn.addEventListener('click', () => {
-        goToSlide(currentIndex + 1);
-        resetAutoPlay();
-    });
-
-    prevBtn.addEventListener('click', () => {
-        goToSlide(currentIndex - 1);
-        resetAutoPlay();
-    });
-
-    // Autoplay functionality
-    function startAutoPlay() {
-        autoPlayInterval = setInterval(() => {
+        nextBtn.addEventListener('click', () => {
             goToSlide(currentIndex + 1);
-        }, 5000); // Change slide every 5 seconds
-    }
+            resetAutoPlay();
+        });
 
-    function resetAutoPlay() {
-        clearInterval(autoPlayInterval);
+        prevBtn.addEventListener('click', () => {
+            goToSlide(currentIndex - 1);
+            resetAutoPlay();
+        });
+
+        function startAutoPlay() {
+            autoPlayInterval = setInterval(() => {
+                goToSlide(currentIndex + 1);
+            }, 5000);
+        }
+
+        function resetAutoPlay() {
+            clearInterval(autoPlayInterval);
+            startAutoPlay();
+        }
+
+        goToSlide(0);
         startAutoPlay();
     }
-
-    // Initial setup
-    goToSlide(0);
-    startAutoPlay();
 
     // --- Elemen DOM ---
     const hamburger = document.querySelector('.hamburger');
@@ -104,15 +94,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const claimPromoBtn = document.getElementById('claim-promo-btn');
     const viewTermsBtn = document.getElementById('view-terms-btn');
     
-    // Elemen Modal Syarat & Ketentuan (BARU)
+    // Elemen Modal Syarat & Ketentuan
     const termsModalOverlay = document.querySelector('.terms-modal-overlay');
     const closeTermsBtn = document.querySelector('.close-terms-btn');
+    
+    // --- Theme Switcher Elements (BARU) ---
+    const themeSwitcher = document.querySelector('.theme-switcher');
+    const themeToggleIcon = document.getElementById('theme-toggle-icon');
+    const body = document.body;
 
 
     // --- Nomor WhatsApp ---
-    // GANTI NOMOR DI BAWAH INI dengan nomor WhatsApp Anda (diawali dengan 62)
     const WHATSAPP_NUMBER = '6285775594663'; 
-
 
     // --- Data Keranjang ---
     let cart = JSON.parse(localStorage.getItem('lezatbites_cart')) || [];
@@ -164,7 +157,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
         cartCountElement.textContent = totalItems;
-        cartTotalPriceEl.textContent = `Rp ${totalPrice.toLocaleString('id-ID')}`;
+        if (cartTotalPriceEl) {
+            cartTotalPriceEl.textContent = `Rp ${totalPrice.toLocaleString('id-ID')}`;
+        }
     };
 
     const updateCart = () => {
@@ -198,6 +193,26 @@ document.addEventListener('DOMContentLoaded', () => {
         cart = cart.filter(item => item.id !== productId);
         updateCart();
     };
+    
+    // --- Fungsi Tema (BARU) ---
+    const applyTheme = (theme) => {
+        if (theme === 'dark') {
+            body.classList.add('dark-mode');
+            themeToggleIcon.classList.remove('fa-sun');
+            themeToggleIcon.classList.add('fa-moon');
+        } else {
+            body.classList.remove('dark-mode');
+            themeToggleIcon.classList.remove('fa-moon');
+            themeToggleIcon.classList.add('fa-sun');
+        }
+    };
+
+    const toggleTheme = () => {
+        const currentTheme = localStorage.getItem('lezatbites_theme') || 'light';
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        localStorage.setItem('lezatbites_theme', newTheme);
+        applyTheme(newTheme);
+    };
 
     // --- Fungsi Modal ---
     const toggleCartModal = () => cartModalOverlay.classList.toggle('show');
@@ -222,86 +237,77 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const closeCheckoutModal = () => checkoutModalOverlay.classList.remove('show');
     
-    // Fungsi untuk Modal Syarat & Ketentuan (BARU)
     const openTermsModal = () => termsModalOverlay.classList.add('show');
     const closeTermsModal = () => termsModalOverlay.classList.remove('show');
 
-
     // --- Event Listeners ---
+    if(themeSwitcher) {
+        themeSwitcher.addEventListener('click', toggleTheme);
+    }
 
-    hamburger.addEventListener('click', () => {
-        hamburger.classList.toggle('active');
-        navMenu.classList.toggle('active');
-    });
+    if (hamburger) {
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+    }
+
     document.querySelectorAll('.nav-item a').forEach(link => {
         link.addEventListener('click', () => {
-            hamburger.classList.remove('active');
-            navMenu.classList.remove('active');
+            if (hamburger) hamburger.classList.remove('active');
+            if (navMenu) navMenu.classList.remove('active');
         });
     });
 
     addToCartButtons.forEach(button => {
-    button.addEventListener('click', (e) => {
-        // Get the button that was clicked
-        const clickedButton = e.currentTarget;
+        button.addEventListener('click', (e) => {
+            const clickedButton = e.currentTarget;
+            clickedButton.disabled = true;
 
-        // Disable the button immediately to prevent double clicks
-        clickedButton.disabled = true;
+            const productCard = clickedButton.closest('.product-card');
+            const productData = clickedButton.dataset;
+            const productImage = productCard.querySelector('.product-image img').src;
 
-        const productCard = clickedButton.closest('.product-card');
-        const productData = clickedButton.dataset;
-        const productImage = productCard.querySelector('.product-image img').src;
+            const product = {
+                id: productData.id,
+                name: productData.name,
+                price: parseInt(productData.price),
+                image: productImage
+            };
+            addToCart(product);
 
-        const product = {
-            id: productData.id,
-            name: productData.name,
-            price: parseInt(productData.price),
-            image: productImage
-        };
-        addToCart(product);
+            clickedButton.innerHTML = '<i class="fas fa-check"></i> Ditambahkan';
+            clickedButton.classList.add('added');
 
-        // Update button text and style
-        clickedButton.innerHTML = '<i class="fas fa-check"></i> Ditambahkan';
-        clickedButton.classList.add('added');
-
-        // Set a timeout to revert the button state
-        setTimeout(() => {
-            clickedButton.innerHTML = '<i class="fas fa-cart-plus"></i> Tambah';
-            clickedButton.classList.remove('added');
-
-            // Re-enable the button after 1.5 seconds
-            clickedButton.disabled = false; 
-        }, 1500);
+            setTimeout(() => {
+                clickedButton.innerHTML = '<i class="fas fa-cart-plus"></i> Tambah';
+                clickedButton.classList.remove('added');
+                clickedButton.disabled = false; 
+            }, 1500);
+        });
     });
-});
 
-    cartIcon.addEventListener('click', toggleCartModal);
-    closeCartBtn.addEventListener('click', toggleCartModal);
-    cartModalOverlay.addEventListener('click', (e) => {
+    if (cartIcon) cartIcon.addEventListener('click', toggleCartModal);
+    if (closeCartBtn) closeCartBtn.addEventListener('click', toggleCartModal);
+    if (cartModalOverlay) cartModalOverlay.addEventListener('click', (e) => {
         if (e.target === cartModalOverlay) {
             toggleCartModal();
         }
     });
 
-    cartBody.addEventListener('click', (e) => {
+    if (cartBody) cartBody.addEventListener('click', (e) => {
         const target = e.target;
         const cartItem = target.closest('.cart-item');
         if (!cartItem) return;
 
         const productId = cartItem.dataset.id;
         
-        if (target.closest('.increase-qty')) {
-            handleQuantityChange(productId, 1);
-        }
-        if (target.closest('.decrease-qty')) {
-            handleQuantityChange(productId, -1);
-        }
-        if (target.closest('.remove-item-btn')) {
-            removeFromCart(productId);
-        }
+        if (target.closest('.increase-qty')) handleQuantityChange(productId, 1);
+        if (target.closest('.decrease-qty')) handleQuantityChange(productId, -1);
+        if (target.closest('.remove-item-btn')) removeFromCart(productId);
     });
     
-    checkoutBtn.addEventListener('click', () => {
+    if (checkoutBtn) checkoutBtn.addEventListener('click', () => {
         if (cart.length > 0) {
             toggleCartModal();
             openCheckoutModal();
@@ -310,17 +316,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    closeCheckoutBtn.addEventListener('click', closeCheckoutModal);
-    checkoutModalOverlay.addEventListener('click', (e) => {
+    if (closeCheckoutBtn) closeCheckoutBtn.addEventListener('click', closeCheckoutModal);
+    if (checkoutModalOverlay) checkoutModalOverlay.addEventListener('click', (e) => {
         if (e.target === checkoutModalOverlay) {
             closeCheckoutModal();
         }
     });
 
-    // =====================================================================
-    // PROSES FORM CHECKOUT (BAGIAN YANG DIMODIFIKASI)
-    // =====================================================================
-    checkoutForm.addEventListener('submit', (e) => {
+    if (checkoutForm) checkoutForm.addEventListener('submit', (e) => {
         e.preventDefault(); 
         
         const customerName = document.getElementById('customer-name').value;
@@ -333,14 +336,12 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Format rincian pesanan untuk pesan WhatsApp
         const orderDetails = cart.map(item => {
             return `- ${item.name} (x${item.quantity}) - Rp ${(item.price * item.quantity).toLocaleString('id-ID')}`;
         }).join('\n');
 
         const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
-        // Buat template pesan
         const message = `
 Halo LezatBites, saya ingin memesan:
 
@@ -356,61 +357,46 @@ ${orderDetails}
 Terima kasih! Mohon segera diproses.
         `;
 
-        // Encode pesan untuk URL dan buat link WhatsApp
         const encodedMessage = encodeURIComponent(message);
         const whatsappURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
 
-        // Buka WhatsApp di tab baru
         window.open(whatsappURL, '_blank');
 
-        // Kosongkan keranjang setelah pesanan "dikirim"
         cart = []; 
         updateCart();
 
-        // Tutup modal dan reset form
         closeCheckoutModal();
         checkoutForm.reset();
     });
-
  
- // =====================================================================
-// EVENT LISTENER UNTUK TOMBOL PROMO
-// =====================================================================
-claimPromoBtn.addEventListener('click', () => {
-    // 1. Definisikan produk paket promo sebagai satu item unik
-    const promoPackage = {
-        id: 'promo-hemat-berdua', // ID unik untuk paket ini
-        name: 'Paket Hemat Berdua', // Nama yang akan tampil di keranjang
-        price: 99000,              // Harga spesial untuk paket
-        image: 'https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=1965&auto=format&fit=crop' // Gambar dari kartu promo
-    };
-
-    // 2. Tambahkan paket tersebut ke keranjang sebagai satu item
-    addToCart(promoPackage);
-
-    // 3. Berikan feedback visual kepada pengguna bahwa promo berhasil ditambahkan
-    claimPromoBtn.textContent = 'Promo Ditambahkan!';
-    claimPromoBtn.style.backgroundColor = '#28a745'; // Warna hijau
-    setTimeout(() => {
-        claimPromoBtn.textContent = 'Klaim Promo';
-        claimPromoBtn.style.backgroundColor = ''; // Kembali ke warna semula
-    }, 2000);
-});
-
-    // Event listener untuk tombol "Lihat Syarat" (DIMODIFIKASI)
-    viewTermsBtn.addEventListener('click', () => {
-        openTermsModal(); // Mengubah dari alert() menjadi membuka modal
+    if (claimPromoBtn) claimPromoBtn.addEventListener('click', () => {
+        const promoPackage = {
+            id: 'promo-hemat-berdua',
+            name: 'Paket Hemat Berdua',
+            price: 99000,
+            image: 'https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=1965&auto=format&fit=crop'
+        };
+        addToCart(promoPackage);
+        claimPromoBtn.textContent = 'Promo Ditambahkan!';
+        claimPromoBtn.style.backgroundColor = '#28a745';
+        setTimeout(() => {
+            claimPromoBtn.textContent = 'Klaim Promo';
+            claimPromoBtn.style.backgroundColor = '';
+        }, 2000);
     });
 
-    // Event listener untuk menutup modal S&K (BARU)
-    closeTermsBtn.addEventListener('click', closeTermsModal);
-    termsModalOverlay.addEventListener('click', (e) => {
+    if (viewTermsBtn) viewTermsBtn.addEventListener('click', openTermsModal);
+    if (closeTermsBtn) closeTermsBtn.addEventListener('click', closeTermsModal);
+    if (termsModalOverlay) termsModalOverlay.addEventListener('click', (e) => {
         if (e.target === termsModalOverlay) {
             closeTermsModal();
         }
     });
 
-
     // --- Inisialisasi ---
+    const savedTheme = localStorage.getItem('lezatbites_theme');
+    if (savedTheme) {
+        applyTheme(savedTheme);
+    }
     updateCart();
 });
