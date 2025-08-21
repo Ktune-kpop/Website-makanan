@@ -1,14 +1,37 @@
 /* CSS Variables for easy theme management */
 :root {
     --primary-color: #ff6347; /* Tomato */
-    --secondary-color: #333;
+    --primary-color-darker: #e5533d;
+    
+    /* Light Mode Palette */
+    --secondary-color: #333333;
     --background-color: #f8f9fa;
-    --text-color: #555;
+    --text-color: #555555;
+    --text-color-light: #777777;
     --card-bg: #ffffff;
+    --border-color: #eeeeee;
+    --footer-bg: #222222;
+    --footer-bottom-bg: #1a1a1a;
+
     --font-family: 'Poppins', sans-serif;
-    --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     --border-radius: 15px;
 }
+
+body.dark-mode {
+    /* Dark Mode Palette */
+    --secondary-color: #f0f0f0;
+    --background-color: #1a1a1a;
+    --text-color: #b0b0b0;
+    --text-color-light: #888888;
+    --card-bg: #2a2a2a;
+    --border-color: #444444;
+    --footer-bg: #222222;
+    --footer-bottom-bg: #1a1a1a;
+    
+    --shadow: 0 4px 25px rgba(0, 0, 0, 0.2);
+}
+
 
 /* General Styling */
 * {
@@ -26,6 +49,7 @@ body {
     background-color: var(--background-color);
     color: var(--text-color);
     line-height: 1.6;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Header and Navbar */
@@ -40,7 +64,7 @@ body {
     top: 0;
     width: 100%;
     z-index: 1000;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .logo {
@@ -86,6 +110,13 @@ body {
     gap: 1.5rem;
 }
 
+.theme-switcher {
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: var(--secondary-color);
+    transition: color 0.3s ease;
+}
+
 .cart-icon-container {
     position: relative;
     cursor: pointer;
@@ -94,6 +125,7 @@ body {
 .cart-icon-container i {
     font-size: 1.5rem;
     color: var(--secondary-color);
+    transition: color 0.3s ease;
 }
 
 .cart-count {
@@ -106,7 +138,8 @@ body {
     padding: 2px 6px;
     font-size: 0.75rem;
     font-weight: bold;
-    border: 2px solid white;
+    border: 2px solid var(--card-bg);
+    transition: border-color 0.3s ease;
 }
 
 .hamburger {
@@ -123,57 +156,15 @@ body {
     transition: all 0.3s ease-in-out;
 }
 
-/* Hero Section */
-.hero {
-    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    color: white;
-    padding: 0 5%;
-}
-
-.hero-content {
-    max-width: 700px;
-}
-
-.hero h1 {
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    margin-bottom: 1rem;
-    line-height: 1.2;
-}
-
-.hero p {
-    font-size: clamp(1rem, 2.5vw, 1.2rem);
-    margin-bottom: 2rem;
-}
-
-.btn-primary {
-    background-color: var(--primary-color);
-    color: white;
-    padding: 0.8rem 2.5rem;
-    border: none;
-    border-radius: 50px;
-    text-decoration: none;
-    font-size: 1.1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: transform 0.3s ease, background-color 0.3s ease;
-}
-
 /* =================================== */
 /* ======= CAROUSEL HERO STYLES ====== */
 /* =================================== */
-
 .hero-carousel {
-    padding: 0;
     width: 100%;
-    height: 90vh; /* Adjust height as needed */
+    height: 90vh;
     max-height: 700px;
     position: relative;
-    overflow: hidden; /* This is crucial */
+    overflow: hidden;
 }
 
 .carousel-container {
@@ -190,7 +181,7 @@ body {
 }
 
 .carousel-slide {
-    flex: 0 0 100%; /* Each slide takes full width and doesn't shrink */
+    flex: 0 0 100%;
     width: 100%;
     height: 100%;
     background-size: cover;
@@ -204,7 +195,6 @@ body {
     padding: 20px;
 }
 
-/* Dark overlay for text readability, same as your original hero */
 .carousel-slide::before {
     content: '';
     position: absolute;
@@ -216,25 +206,23 @@ body {
     z-index: 1;
 }
 
-/* Ensure hero-content is above the overlay */
 .carousel-slide .hero-content {
     position: relative;
     z-index: 2;
-    max-width: 800px; /* Limit content width */
+    max-width: 800px;
 }
 
 .carousel-slide h1 {
-    font-size: 3.5rem; /* Larger font for emphasis */
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
     margin-bottom: 1rem;
     text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
 }
 
 .carousel-slide p {
-    font-size: 1.2rem;
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
     margin-bottom: 2rem;
 }
 
-/* Styling for Previous/Next buttons */
 .carousel-btn {
     position: absolute;
     top: 50%;
@@ -258,15 +246,9 @@ body {
     background-color: rgba(255, 255, 255, 0.4);
 }
 
-.carousel-btn.prev {
-    left: 20px;
-}
+.carousel-btn.prev { left: 20px; }
+.carousel-btn.next { right: 20px; }
 
-.carousel-btn.next {
-    right: 20px;
-}
-
-/* Styling for indicator dots */
 .carousel-dots {
     position: absolute;
     bottom: 25px;
@@ -286,30 +268,23 @@ body {
     transition: background-color 0.3s ease;
 }
 
-.dot.active {
-    background-color: white;
-}
+.dot.active { background-color: white; }
 
-/* Make hero responsive on smaller screens */
-@media (max-width: 768px) {
-    .hero-carousel {
-        height: 80vh;
-    }
-    .carousel-slide h1 {
-        font-size: 2.5rem;
-    }
-    .carousel-slide p {
-        font-size: 1rem;
-    }
-    .carousel-btn {
-        width: 40px;
-        height: 40px;
-        font-size: 1rem;
-    }
+/* Buttons */
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.8rem 2.5rem;
+    border: none;
+    border-radius: 50px;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
 }
-
 .btn-primary:hover {
-    background-color: #e5533d;
+    background-color: var(--primary-color-darker);
     transform: translateY(-3px);
 }
 
@@ -324,6 +299,7 @@ body {
     color: var(--secondary-color);
     margin-bottom: 3.5rem;
     position: relative;
+    transition: color 0.3s ease;
 }
 
 .section-title::after {
@@ -349,12 +325,16 @@ body {
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
 }
 
 .product-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+}
+
+body.dark-mode .product-card:hover {
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
 }
 
 .product-image img {
@@ -377,6 +357,7 @@ body {
     margin-bottom: 0.5rem;
     color: var(--secondary-color);
     font-size: 1.2rem;
+    transition: color 0.3s ease;
 }
 
 .price {
@@ -388,13 +369,13 @@ body {
 
 .btn-add-to-cart {
     background-color: var(--secondary-color);
-    color: white;
+    color: var(--background-color);
     padding: 0.7rem 1.5rem;
     border: none;
     border-radius: 50px;
     cursor: pointer;
     font-weight: 600;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease;
     width: 100%;
 }
 
@@ -406,10 +387,17 @@ body {
     background-color: #555;
 }
 
+body.dark-mode .btn-add-to-cart:hover {
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+
 /* Promo Section */
 .promo-section {
     padding: 4rem 5%;
-    background-color: #fff8f6;
+    background-color: var(--card-bg);
+    transition: background-color 0.3s ease;
 }
 
 .promo-grid {
@@ -419,13 +407,13 @@ body {
 }
 
 .promo-card {
-    background: var(--card-bg);
+    background: var(--background-color);
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .promo-card:hover {
@@ -468,12 +456,14 @@ body {
     font-size: 1.8rem;
     font-weight: 700;
     color: var(--secondary-color);
+    transition: color 0.3s ease;
 }
 
 .old-price {
     font-size: 1.1rem;
-    color: #999;
+    color: var(--text-color-light);
     text-decoration: line-through;
+    transition: color 0.3s ease;
 }
 
 .btn-promo {
@@ -490,12 +480,12 @@ body {
 }
 
 .btn-promo:hover {
-    background-color: #e5533d;
+    background-color: var(--primary-color-darker);
 }
 
 /* Footer */
 footer {
-    background-color: var(--secondary-color);
+    background-color: var(--footer-bg);
     color: #ccc;
     padding-top: 3rem;
 }
@@ -537,7 +527,7 @@ footer {
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    transition: background-color 0.3s, color 0.3s;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 
 .socials a:hover {
@@ -547,68 +537,81 @@ footer {
 }
 
 .footer-bottom {
-    background-color: #222;
+    background-color: var(--footer-bottom-bg);
     padding: 1rem 0;
     text-align: center;
     font-size: 0.9rem;
 }
 
-/* Cart Modal Styling */
-.cart-modal-overlay {
+/* Modals General Styling */
+.modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.6);
-    z-index: 1001;
     display: flex;
-    justify-content: flex-end;
     visibility: hidden;
     opacity: 0;
     transition: visibility 0.3s, opacity 0.3s;
+    backdrop-filter: blur(5px);
 }
 
-.cart-modal-overlay.show {
+.modal-overlay.show {
     visibility: visible;
     opacity: 1;
 }
 
-.cart-modal {
-    background-color: white;
-    width: 100%;
-    max-width: 450px;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    transform: translateX(100%);
-    transition: transform 0.3s ease-in-out;
+.modal-base {
+    background-color: var(--card-bg);
+    transition: background-color 0.3s, transform 0.3s ease;
 }
 
-.cart-modal-overlay.show .cart-modal {
-    transform: translateX(0);
-}
-
-.cart-header {
+.modal-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1rem 1.5rem;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--border-color);
+    transition: border-color 0.3s ease;
 }
 
-.cart-header h2 {
+.modal-header h2 {
     font-size: 1.5rem;
     color: var(--secondary-color);
+    transition: color 0.3s ease;
 }
 
-.close-cart-btn {
+.close-btn {
     background: none;
     border: none;
     font-size: 2.5rem;
     cursor: pointer;
     color: #aaa;
     line-height: 1;
+    transition: color 0.3s ease;
+}
+.close-btn:hover { color: var(--primary-color); }
+
+
+/* Cart Modal */
+.cart-modal-overlay {
+    z-index: 1001;
+    justify-content: flex-end;
+}
+
+.cart-modal {
+    width: 100%;
+    max-width: 450px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+}
+
+.cart-modal-overlay.show .cart-modal {
+    transform: translateX(0);
 }
 
 .cart-body {
@@ -623,7 +626,8 @@ footer {
     gap: 1rem;
     margin-bottom: 1rem;
     padding-bottom: 1rem;
-    border-bottom: 1px solid #f0f0f0;
+    border-bottom: 1px solid var(--border-color);
+    transition: border-color 0.3s ease;
 }
 
 .cart-item-img {
@@ -633,14 +637,11 @@ footer {
     border-radius: 10px;
 }
 
-.cart-item-info {
-    flex-grow: 1;
-}
-
 .cart-item-info h4 {
     font-size: 1rem;
     color: var(--secondary-color);
     margin-bottom: 5px;
+    transition: color 0.3s ease;
 }
 
 .cart-item-price {
@@ -656,13 +657,15 @@ footer {
 }
 
 .quantity-btn {
-    background: #f0f0f0;
+    background: var(--border-color);
     border: none;
     width: 25px;
     height: 25px;
     border-radius: 50%;
     cursor: pointer;
     font-weight: bold;
+    color: var(--secondary-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .remove-item-btn {
@@ -677,12 +680,13 @@ footer {
 .cart-empty-msg {
     text-align: center;
     padding: 3rem 1rem;
-    color: #999;
+    color: var(--text-color-light);
 }
 
 .cart-footer {
     padding: 1.5rem;
-    border-top: 1px solid #eee;
+    border-top: 1px solid var(--border-color);
+    transition: border-color 0.3s ease;
 }
 
 .cart-total {
@@ -690,6 +694,7 @@ footer {
     justify-content: space-between;
     font-size: 1.2rem;
     margin-bottom: 1rem;
+    color: var(--secondary-color);
 }
 
 .btn-checkout {
@@ -706,135 +711,79 @@ footer {
 }
 
 .btn-checkout:hover {
-    background-color: #e5533d;
+    background-color: var(--primary-color-darker);
 }
 
-/* Checkout Modal Styling */
-.checkout-modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
-    z-index: 1002; /* Higher z-index than cart */
-    display: flex;
+/* Checkout & Terms Modals */
+.checkout-modal-overlay, .terms-modal-overlay {
+    z-index: 1002;
     justify-content: center;
     align-items: center;
-    visibility: hidden;
-    opacity: 0;
-    transition: visibility 0.3s, opacity 0.3s;
     padding: 1rem;
 }
 
-.checkout-modal-overlay.show {
-    visibility: visible;
-    opacity: 1;
-}
-
-.checkout-modal {
-    background-color: white;
+.checkout-modal, .terms-modal {
     width: 100%;
-    max-width: 600px;
     border-radius: var(--border-radius);
     display: flex;
     flex-direction: column;
     max-height: 90vh;
     box-shadow: var(--shadow);
     transform: scale(0.9);
-    transition: transform 0.3s ease;
 }
+.checkout-modal { max-width: 600px; }
+.terms-modal { max-width: 550px; }
 
-.checkout-modal-overlay.show .checkout-modal {
+
+.checkout-modal-overlay.show .checkout-modal,
+.terms-modal-overlay.show .terms-modal {
     transform: scale(1);
 }
 
-.checkout-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 1.5rem;
-    border-bottom: 1px solid #eee;
-}
-
-.checkout-header h2 {
-    font-size: 1.5rem;
-    color: var(--secondary-color);
-}
-
-.close-checkout-btn {
-    background: none;
-    border: none;
-    font-size: 2.5rem;
-    cursor: pointer;
-    color: #aaa;
-    line-height: 1;
-}
-
-.checkout-body {
+.checkout-body, .terms-body {
     flex-grow: 1;
     overflow-y: auto;
     padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
 }
 
-.order-summary h3, .customer-details h3 {
+.order-summary h3, .customer-details h3, .terms-body h3 {
     font-size: 1.2rem;
     color: var(--secondary-color);
     margin-bottom: 1rem;
     border-bottom: 2px solid var(--primary-color);
     padding-bottom: 0.5rem;
     display: inline-block;
-}
-
-#summary-items-container .summary-item {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.9rem;
-    margin-bottom: 0.5rem;
-}
-
-#summary-items-container .summary-item-name {
-    color: var(--text-color);
-}
-
-#summary-items-container .summary-item-price {
-    font-weight: 600;
+    transition: color 0.3s ease;
 }
 
 .summary-total {
-    display: flex;
-    justify-content: space-between;
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin-top: 1rem;
-    padding-top: 1rem;
-    border-top: 1px solid #eee;
-}
-
-.form-group {
-    margin-bottom: 1rem;
+    border-top: 1px solid var(--border-color);
+    transition: border-color 0.3s ease;
 }
 
 .form-group label {
     display: block;
     margin-bottom: 0.5rem;
     font-weight: 600;
+    color: var(--secondary-color);
+    transition: color 0.3s ease;
 }
 
 .form-group input, .form-group textarea, .form-group select {
     width: 100%;
     padding: 0.7rem;
-    border: 1px solid #ccc;
+    border: 1px solid var(--border-color);
     border-radius: 8px;
     font-family: var(--font-family);
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 
 .checkout-footer {
     padding: 1.5rem;
-    border-top: 1px solid #eee;
+    border-top: 1px solid var(--border-color);
+    transition: border-color 0.3s ease;
 }
 
 .btn-place-order {
@@ -851,96 +800,25 @@ footer {
 }
 
 .btn-place-order:hover {
-    background-color: #e5533d;
+    background-color: var(--primary-color-darker);
 }
 
-/* Terms & Conditions Modal Styling */
-.terms-modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
-    z-index: 1003; /* Higher z-index than others */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    visibility: hidden;
-    opacity: 0;
-    transition: visibility 0.3s, opacity 0.3s;
-    padding: 1rem;
-}
-
-.terms-modal-overlay.show {
-    visibility: visible;
-    opacity: 1;
-}
-
-.terms-modal {
-    background-color: white;
-    width: 100%;
-    max-width: 550px;
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow);
-    transform: scale(0.9);
-    transition: transform 0.3s ease;
-    display: flex;
-    flex-direction: column;
-}
-
-.terms-modal-overlay.show .terms-modal {
-    transform: scale(1);
-}
-
-.terms-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 1.5rem;
-    border-bottom: 1px solid #eee;
-}
-
-.terms-header h2 {
-    font-size: 1.5rem;
-    color: var(--secondary-color);
-}
-
-.close-terms-btn {
-    background: none;
-    border: none;
-    font-size: 2.5rem;
-    cursor: pointer;
-    color: #aaa;
-    line-height: 1;
-}
-
-.terms-body {
-    padding: 1.5rem;
-    line-height: 1.7;
-}
-
-.terms-body h3 {
-    color: var(--primary-color);
-    margin-bottom: 1rem;
-}
-
-.terms-body ul {
-    margin-left: 20px;
-    margin-bottom: 1rem;
-}
-
-.terms-body ul li {
-    margin-bottom: 0.5rem;
-}
-
+.terms-body { line-height: 1.7; }
+.terms-body h3 { color: var(--primary-color); }
+.terms-body ul { margin-left: 20px; margin-bottom: 1rem; }
+.terms-body ul li { margin-bottom: 0.5rem; }
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    .hero-carousel { height: 80vh; }
+    .carousel-slide h1 { font-size: 2.5rem; }
+    .carousel-slide p { font-size: 1rem; }
+    .carousel-btn { width: 40px; height: 40px; font-size: 1rem; }
+
     .nav-menu {
         position: fixed;
         left: -100%;
-        top: 70px;
+        top: 70px; /* Adjust to navbar height */
         flex-direction: column;
         background-color: var(--card-bg);
         width: 100%;
@@ -950,49 +828,18 @@ footer {
         gap: 0;
     }
 
-    .nav-menu.active {
-        left: 0;
-    }
-
-    .nav-item {
-        width: 100%;
-    }
-
-    .nav-item a {
-        display: block;
-        padding: 1.5rem 0;
-        border-bottom: 1px solid #f0f0f0;
-    }
-    
-    .nav-item a:hover::after {
-        width: 0;
-    }
-
-    .hamburger {
-        display: block;
-    }
-
-    .hamburger.active .bar:nth-child(2) {
-        opacity: 0;
-    }
-
-    .hamburger.active .bar:nth-child(1) {
-        transform: translateY(8px) rotate(45deg);
-    }
-
-    .hamburger.active .bar:nth-child(3) {
-        transform: translateY(-8px) rotate(-45deg);
-    }
-    .checkout-modal, .terms-modal {
-        max-width: 95%;
-    }
+    .nav-menu.active { left: 0; }
+    .nav-item { width: 100%; }
+    .nav-item a { display: block; padding: 1.5rem 0; border-bottom: 1px solid var(--border-color); }
+    .nav-item a:hover::after { width: 0; }
+    .hamburger { display: block; }
+    .hamburger.active .bar:nth-child(2) { opacity: 0; }
+    .hamburger.active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .hamburger.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+    .checkout-modal, .terms-modal { max-width: 95%; }
 }
 
 @media (max-width: 480px) {
-    .promo-grid {
-        grid-template-columns: 1fr;
-    }
-    .cart-modal {
-        max-width: 95%;
-    }
+    .promo-grid { grid-template-columns: 1fr; }
+    .cart-modal { max-width: 95%; }
 }
