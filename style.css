@@ -537,6 +537,63 @@ body.dark-mode .promo-section {
     background-color: #e5533d;
 }
 
+/* Customer Reviews Section */
+.reviews {
+    padding: 6rem 5%;
+}
+
+.review-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.review-card {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.review-card:hover {
+    transform: translateY(-8px);
+}
+
+.review-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.review-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 1rem;
+    border: 3px solid var(--primary-color);
+}
+
+.review-info h4 {
+    font-size: 1.1rem;
+    color: var(--secondary-color);
+    margin: 0;
+}
+
+.review-rating {
+    color: #ffc107; /* Gold color for stars */
+}
+
+.review-text {
+    font-style: italic;
+    color: var(--text-color);
+    line-height: 1.7;
+}
+
+
 /* Footer */
 footer {
     background-color: var(--primary-color);
