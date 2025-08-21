@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- Carousel Logic ---
+    const carousel = document.querySelector('.hero-carousel'); // Target the main container
     const slidesContainer = document.querySelector('.carousel-slides');
     const slides = document.querySelectorAll('.carousel-slide');
     const prevBtn = document.querySelector('.carousel-btn.prev');
@@ -10,6 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
         let currentIndex = 0;
         const totalSlides = slides.length;
         let autoPlayInterval;
+        let touchStartX = 0;
+        let touchEndX = 0;
 
         for (let i = 0; i < totalSlides; i++) {
             const dot = document.createElement('div');
@@ -52,6 +55,31 @@ document.addEventListener('DOMContentLoaded', () => {
             goToSlide(currentIndex - 1);
             resetAutoPlay();
         });
+        
+        // --- NEW: Swipe Gesture Logic ---
+        carousel.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+        }, { passive: true });
+
+        carousel.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].clientX;
+            handleSwipe();
+        }, { passive: true });
+        
+        const handleSwipe = () => {
+            const swipeThreshold = 50; // Minimum distance in pixels for a swipe
+            // Swiped left
+            if (touchStartX - touchEndX > swipeThreshold) {
+                goToSlide(currentIndex + 1);
+                resetAutoPlay();
+            } 
+            // Swiped right
+            else if (touchStartX - touchEndX < -swipeThreshold) {
+                goToSlide(currentIndex - 1);
+                resetAutoPlay();
+            }
+        };
+        // --- END: Swipe Gesture Logic ---
 
         function startAutoPlay() {
             autoPlayInterval = setInterval(() => {
