@@ -1,6 +1,5 @@
-/* CSS Variables for easy theme management */
 :root {
-    --primary-color: #ff6347; /* Tomato */
+    --primary-color: #ff6347; 
     --secondary-color: #333;
     --background-color: #f8f9fa;
     --text-color: #555;
@@ -11,7 +10,6 @@
     --border-color: #eee;
 }
 
-/* Dark Mode Color Palette */
 body.dark-mode {
     --primary-color: #ff7a5f;
     --secondary-color: #e0e0e0;
@@ -22,7 +20,6 @@ body.dark-mode {
     --border-color: #3a3a3a;
 }
 
-/* General Styling */
 * {
     margin: 0;
     padding: 0;
@@ -41,7 +38,6 @@ body {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Header and Navbar */
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -109,7 +105,6 @@ body {
     color: var(--secondary-color);
 }
 
-/* Theme Switcher Styles */
 .theme-switcher {
     cursor: pointer;
 }
@@ -153,7 +148,6 @@ body {
     transition: all 0.3s ease-in-out;
 }
 
-/* Hero Section */
 .hero {
     background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
     min-height: 100vh;
@@ -193,17 +187,13 @@ body {
     transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
-/* =================================== */
-/* ======= CAROUSEL HERO STYLES ====== */
-/* =================================== */
-
 .hero-carousel {
     padding: 0;
     width: 100%;
-    height: 90vh; /* Adjust height as needed */
+    height: 90vh; 
     max-height: 700px;
     position: relative;
-    overflow: hidden; /* This is crucial */
+    overflow: hidden; 
 }
 
 .carousel-container {
@@ -220,7 +210,7 @@ body {
 }
 
 .carousel-slide {
-    flex: 0 0 100%; /* Each slide takes full width and doesn't shrink */
+    flex: 0 0 100%; 
     width: 100%;
     height: 100%;
     background-size: cover;
@@ -234,7 +224,6 @@ body {
     padding: 20px;
 }
 
-/* Dark overlay for text readability, same as your original hero */
 .carousel-slide::before {
     content: '';
     position: absolute;
@@ -246,15 +235,14 @@ body {
     z-index: 1;
 }
 
-/* Ensure hero-content is above the overlay */
 .carousel-slide .hero-content {
     position: relative;
     z-index: 2;
-    max-width: 800px; /* Limit content width */
+    max-width: 800px;
 }
 
 .carousel-slide h1 {
-    font-size: 3.5rem; /* Larger font for emphasis */
+    font-size: 3.5rem; 
     margin-bottom: 1rem;
     text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
 }
@@ -264,7 +252,6 @@ body {
     margin-bottom: 2rem;
 }
 
-/* Styling for Previous/Next buttons */
 .carousel-btn {
     position: absolute;
     top: 50%;
@@ -296,7 +283,6 @@ body {
     right: 20px;
 }
 
-/* Styling for indicator dots */
 .carousel-dots {
     position: absolute;
     bottom: 25px;
@@ -320,7 +306,6 @@ body {
     background-color: white;
 }
 
-/* Make hero responsive on smaller screens */
 @media (max-width: 768px) {
     .hero-carousel {
         height: 80vh;
@@ -343,7 +328,6 @@ body {
     transform: translateY(-3px);
 }
 
-/* Products Section */
 .products {
     padding: 6rem 5%;
 }
@@ -445,8 +429,6 @@ body.dark-mode .btn-add-to-cart {
     color: #333;
 }
 
-
-/* Promo Section */
 .promo-section {
     padding: 4rem 5%;
     background-color: #fff8f6;
@@ -537,18 +519,17 @@ body.dark-mode .promo-section {
     background-color: #e5533d;
 }
 
-/* Customer Reviews Section */
 @keyframes scroll {
     0% {
         transform: translateX(0);
     }
     100% {
-        transform: translateX(calc(-350px * 4)); /* 350px card width * 4 cards */
+        transform: translateX(calc(-350px * 4)); 
     }
 }
 
 .reviews {
-    padding: 6rem 0; /* Changed padding */
+    padding: 6rem 0;
     overflow: hidden;
     position: relative;
 }
@@ -557,7 +538,6 @@ body.dark-mode .promo-section {
     animation-play-state: paused;
 }
 
-/* Gradient fade effect on the sides */
 .reviews::before,
 .reviews::after {
     content: '';
@@ -588,9 +568,9 @@ body.dark-mode .reviews::after {
 
 
 .review-grid {
-    display: flex; /* Changed from grid to flex */
+    display: flex; 
     gap: 2rem;
-    width: calc(350px * 8); /* 350px card width * 8 total cards */
+    width: calc(350px * 8); 
     animation: scroll 60s linear infinite;
 }
 
@@ -602,8 +582,8 @@ body.dark-mode .reviews::after {
     display: flex;
     flex-direction: column;
     transition: transform 0.3s ease, background-color 0.3s ease;
-    width: 330px; /* Fixed width */
-    flex-shrink: 0; /* Prevent shrinking */
+    width: 330px; 
+    flex-shrink: 0; 
 }
 
 .review-card:hover {
@@ -632,7 +612,7 @@ body.dark-mode .reviews::after {
 }
 
 .review-rating {
-    color: #ffc107; /* Gold color for stars */
+    color: #ffc107;
 }
 
 .review-text {
@@ -641,7 +621,6 @@ body.dark-mode .reviews::after {
     line-height: 1.7;
 }
 
-/* Contact Section */
 .contact-section {
     padding: 6rem 5%;
 }
@@ -684,7 +663,7 @@ body.dark-mode .reviews::after {
 .contact-info ul li i {
     color: var(--primary-color);
     font-size: 1.5rem;
-    width: 25px; /* To align the text */
+    width: 25px;
     text-align: center;
 }
 
@@ -693,7 +672,6 @@ body.dark-mode .reviews::after {
     min-height: 350px;
 }
 
-/* Make contact section responsive */
 @media (max-width: 992px) {
     .contact-container {
         grid-template-columns: 1fr;
@@ -707,7 +685,6 @@ body.dark-mode .reviews::after {
 }
 
 
-/* Footer */
 footer {
     background-color: var(--primary-color);
     color: #ccc;
@@ -949,7 +926,6 @@ body.dark-mode .quantity-btn {
     background-color: #e5533d;
 }
 
-/* Checkout Modal Styling */
 .checkout-modal-overlay {
     position: fixed;
     top: 0;
@@ -1102,7 +1078,6 @@ body.dark-mode .close-checkout-btn {
     background-color: #e5533d;
 }
 
-/* Terms & Conditions Modal Styling */
 .terms-modal-overlay {
     position: fixed;
     top: 0;
@@ -1110,7 +1085,7 @@ body.dark-mode .close-checkout-btn {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.6);
-    z-index: 1003; /* Higher z-index than others */
+    z-index: 1003;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1190,8 +1165,6 @@ body.dark-mode .close-terms-btn {
     height: 100%;
 }
 
-
-/* Responsive Design */
 @media (max-width: 768px) {
     #map-image {
         width: 100%;
